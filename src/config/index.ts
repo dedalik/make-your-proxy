@@ -18,13 +18,15 @@ export const defaultArgs: CommandLineArgs[] = [
     {
         key: "target",
         options: {
+            alias: "t",
             type: "string",
-            desc: "The target hostname and port",
+            desc: "Host for proxying to",
         },
     },
     {
         key: "port",
         options: {
+            alias: "p",
             type: "number",
             desc: "Port for proxy to listen",
         },
