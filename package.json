@@ -1,0 +1,40 @@
+{
+  "name": "make-your-proxy",
+  "version": "1.0.0",
+  "author": {
+    "name": "Aleksei Tsikov",
+    "url": "https://github.com/atsikov"
+  },
+  "description": "Configurable proxy to work with a set of plugins",
+  "main": "dist/make-your-proxy.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "start": "yarn build && node dist/make-your-proxy.js",
+    "watch": "npm-run-all --parallel watch:build watch:run",
+    "watch:build": "webpack --watch",
+    "watch:run": "nodemon \"./dist/make-your-proxy.js\" \"./dist\""
+  },
+  "devDependencies": {
+    "@types/express": "^4.11.1",
+    "@types/http-proxy": "^1.16.0",
+    "@types/lodash": "^4.14.104",
+    "@types/node": "9.4.6",
+    "@types/yargs": "^11.0.0",
+    "nodemon": "^1.17.1",
+    "npm-run-all": "^4.1.2",
+    "ts-loader": "^4.0.1",
+    "typescript": "2.7.2",
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10"
+  },
+  "dependencies": {
+    "brotli": "^1.3.2",
+    "console-to-terminal": "^1.0.1",
+    "express": "^4.16.2",
+    "express-http-proxy": "^1.1.0",
+    "http-proxy": "^1.16.2",
+    "lodash": "^4.17.5",
+    "yargs": "^11.0.0"
+  }
+}
