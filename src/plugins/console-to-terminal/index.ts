@@ -4,8 +4,9 @@ const consoleToTerminal = require("console-to-terminal");
 let app: any;
 let host: string;
 let port: string;
-export const initConsoleToTerminal = (options: any) => {
-    ({ host = "localhost", port = "8765" } = options);
+export const initConsoleToTerminal = (options?: any) => {
+    host = options && options.host || "localhost";
+    port = options && options.port || "8765";
     app = consoleToTerminal(host, port);
 };
 

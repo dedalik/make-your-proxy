@@ -17,16 +17,32 @@ const pluginsModule = require("./plugins/index");
 const plugins: MYProxyPluginImpl[] = [];
 
 const requiredPlugins = myProxyConfig.plugins;
-const requiredPluginNames = requiredPlugins.map(entry => entry.name);
+if (requiredPlugins && requiredPlugins.length) {
+    requiredPlugins.forEach(({ name: pluginName, options: pluginOptions }) => {
+        // try to find local plugin
+        let pluginImpl: MYProxyPluginImpl;
+        for (const pluginModuleName in pluginsModule) {
+            const localPlugin = pluginsModule[pluginModuleName] as MYProxyPlugin;
+            if (pluginName === localPlugin.name) {
+                pluginImpl = localPlugin.getPlugin(pluginOptions);
+                break;
+            }
+        }
 
-for (const pluginModuleName in pluginsModule) {
-    const plugin = pluginsModule[pluginModuleName] as MYProxyPlugin;
-    const pluginIndex = requiredPluginNames.indexOf(plugin.name);
-    if (pluginIndex > -1) {
-        plugins.push(
-            plugin.getPlugin(requiredPlugins[pluginIndex].options),
-        );
-    }
+        // look for plugin in installed modules
+        if (!pluginImpl) {
+            try {
+                const preinstalledPlugin = require(pluginName);
+                pluginImpl = preinstalledPlugin.getPlugin(pluginOptions);
+            } catch (e) {
+                console.warn(`Unable to load plugin ${pluginName}`);
+            }
+        }
+
+        if (pluginImpl) {
+            plugins.push(pluginImpl);
+        }
+    });
 }
 
 plugins.forEach((plugin) => {

@@ -3086,6 +3086,17 @@ eval("/* WEBPACK VAR INJECTION */(function(__dirname) {\nconst argsert = __webpa
 
 /***/ }),
 
+/***/ "./src sync recursive":
+/*!******************!*\
+  !*** ./src sync ***!
+  \******************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error('Cannot find module \"' + req + '\".');\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src sync recursive\";\n\n//# sourceURL=webpack:///./src_sync?");
+
+/***/ }),
+
 /***/ "./src/config/index.ts":
 /*!*****************************!*\
   !*** ./src/config/index.ts ***!
@@ -3106,7 +3117,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config/index */ \"./src/config/index.ts\");\n/* harmony import */ var _proxy_my_proxy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./proxy/my-proxy */ \"./src/proxy/my-proxy.ts\");\n\n\nvar myProxyConfig = __webpack_require__(/*! ../myproxy.config.json */ \"./myproxy.config.json\");\nvar options = Object(_config_index__WEBPACK_IMPORTED_MODULE_0__[\"applyCommandLineArgs\"])(Object(_config_index__WEBPACK_IMPORTED_MODULE_0__[\"getProxyOptions\"])(myProxyConfig.target || \"localhost\", myProxyConfig.port || \"8008\"), _config_index__WEBPACK_IMPORTED_MODULE_0__[\"defaultArgs\"]);\nvar pluginsModule = __webpack_require__(/*! ./plugins/index */ \"./src/plugins/index.ts\");\nvar plugins = [];\nvar requiredPlugins = myProxyConfig.plugins;\nvar requiredPluginNames = requiredPlugins.map(function (entry) { return entry.name; });\nfor (var pluginModuleName in pluginsModule) {\n    var plugin = pluginsModule[pluginModuleName];\n    var pluginIndex = requiredPluginNames.indexOf(plugin.name);\n    if (pluginIndex > -1) {\n        plugins.push(plugin.getPlugin(requiredPlugins[pluginIndex].options));\n    }\n}\nplugins.forEach(function (plugin) {\n    if (plugin.initPlugin) {\n        plugin.initPlugin(plugin.options);\n    }\n});\noptions.plugins = plugins;\nvar proxy = new _proxy_my_proxy__WEBPACK_IMPORTED_MODULE_1__[\"MYProxy\"](options);\nproxy.listen();\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config/index */ \"./src/config/index.ts\");\n/* harmony import */ var _proxy_my_proxy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./proxy/my-proxy */ \"./src/proxy/my-proxy.ts\");\n\n\nvar myProxyConfig = __webpack_require__(/*! ../myproxy.config.json */ \"./myproxy.config.json\");\nvar options = Object(_config_index__WEBPACK_IMPORTED_MODULE_0__[\"applyCommandLineArgs\"])(Object(_config_index__WEBPACK_IMPORTED_MODULE_0__[\"getProxyOptions\"])(myProxyConfig.target || \"localhost\", myProxyConfig.port || \"8008\"), _config_index__WEBPACK_IMPORTED_MODULE_0__[\"defaultArgs\"]);\nvar pluginsModule = __webpack_require__(/*! ./plugins/index */ \"./src/plugins/index.ts\");\nvar plugins = [];\nvar requiredPlugins = myProxyConfig.plugins;\nif (requiredPlugins && requiredPlugins.length) {\n    requiredPlugins.forEach(function (_a) {\n        var pluginName = _a.name, pluginOptions = _a.options;\n        // try to find local plugin\n        var pluginImpl;\n        for (var pluginModuleName in pluginsModule) {\n            var localPlugin = pluginsModule[pluginModuleName];\n            if (pluginName === localPlugin.name) {\n                pluginImpl = localPlugin.getPlugin(pluginOptions);\n                break;\n            }\n        }\n        // look for plugin in installed modules\n        if (!pluginImpl) {\n            try {\n                var preinstalledPlugin = __webpack_require__(\"./src sync recursive\")(pluginName);\n                pluginImpl = preinstalledPlugin.getPlugin(pluginOptions);\n            }\n            catch (e) {\n                console.warn(\"Unable to load plugin \" + pluginName);\n            }\n        }\n        if (pluginImpl) {\n            plugins.push(pluginImpl);\n        }\n    });\n}\nplugins.forEach(function (plugin) {\n    if (plugin.initPlugin) {\n        plugin.initPlugin(plugin.options);\n    }\n});\noptions.plugins = plugins;\nvar proxy = new _proxy_my_proxy__WEBPACK_IMPORTED_MODULE_1__[\"MYProxy\"](options);\nproxy.listen();\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ }),
 
@@ -3118,7 +3129,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _con
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"initConsoleToTerminal\", function() { return initConsoleToTerminal; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"injectConsoleHook\", function() { return injectConsoleHook; });\nvar consoleToTerminal = __webpack_require__(/*! console-to-terminal */ \"./node_modules/console-to-terminal/index.js\");\nvar app;\nvar host;\nvar port;\nvar initConsoleToTerminal = function (options) {\n    (_a = options.host, host = _a === void 0 ? \"localhost\" : _a, _b = options.port, port = _b === void 0 ? \"8765\" : _b);\n    app = consoleToTerminal(host, port);\n    var _a, _b;\n};\nvar injectConsoleHook = function (rawHtml) {\n    return rawHtml.replace(\"<head>\", \"<head><script src=\\\"http://\" + host + \":\" + port + \"/console-hook.js\\\"></script>\");\n};\n\n\n//# sourceURL=webpack:///./src/plugins/console-to-terminal/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"initConsoleToTerminal\", function() { return initConsoleToTerminal; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"injectConsoleHook\", function() { return injectConsoleHook; });\nvar consoleToTerminal = __webpack_require__(/*! console-to-terminal */ \"./node_modules/console-to-terminal/index.js\");\nvar app;\nvar host;\nvar port;\nvar initConsoleToTerminal = function (options) {\n    host = options && options.host || \"localhost\";\n    port = options && options.port || \"8765\";\n    app = consoleToTerminal(host, port);\n};\nvar injectConsoleHook = function (rawHtml) {\n    return rawHtml.replace(\"<head>\", \"<head><script src=\\\"http://\" + host + \":\" + port + \"/console-hook.js\\\"></script>\");\n};\n\n\n//# sourceURL=webpack:///./src/plugins/console-to-terminal/index.ts?");
 
 /***/ }),
 
