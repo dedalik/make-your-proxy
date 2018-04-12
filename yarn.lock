@@ -1386,9 +1386,9 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
 
-console-to-terminal@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/console-to-terminal/-/console-to-terminal-1.0.1.tgz#58e3b9c7436f35e239f1db81d7ac9ced021a3e63"
+console-to-terminal@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/console-to-terminal/-/console-to-terminal-1.1.0.tgz#b4ed4e5580f0666e01b34469f0229ced572e36d5"
   dependencies:
     chalk "^2.3.1"
     cors "^2.8.4"

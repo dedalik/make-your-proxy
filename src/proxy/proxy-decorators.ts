@@ -14,7 +14,7 @@ export function getProxyResDecorator(options: ProxyOptions) {
 }
 
 function proxyResponseHeadersDecorator(options, headers, userReq, userRes, proxyReq, proxyRes) {
-    headers = handleRedirectResponse(options, headers, userRes);
+    headers = handleRedirectResponse(options, headers, userReq, userRes);
     if (options.isSecure) {
         headers = handleSetSecureCookie(headers);
     }
@@ -22,7 +22,7 @@ function proxyResponseHeadersDecorator(options, headers, userReq, userRes, proxy
     return headers;
 }
 
-function handleRedirectResponse(options, headers, res) {
+function handleRedirectResponse(options, headers, req, res) {
     const { location } = headers;
     if (REDIRECT_HTTP_STATUS_CODES.includes(parseInt(res.statusCode, 10)) && location) {
         // headers.location = location.replace(/(https?\:\/\/)(.*?)(\/|\?|$)/, `$1${options.domain}$3`);
@@ -31,7 +31,7 @@ function handleRedirectResponse(options, headers, res) {
             if (locationUrl.protocol === "https:") {
                 locationUrl.protocol = "http:";
             }
-            locationUrl.host = `localhost:${options.port}`;
+            locationUrl.host = req.headers.host;
         }
         headers.location = url.format(locationUrl);
     }

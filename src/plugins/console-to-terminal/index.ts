@@ -4,9 +4,12 @@ const consoleToTerminal = require("console-to-terminal");
 let app: any;
 let host: string;
 let port: string;
-export const initConsoleToTerminal = (options: any) => {
-    ({ host = "localhost", port = "8765" } = options);
-    app = consoleToTerminal(host, port);
+let xhr: boolean;
+export const initConsoleToTerminal = (options?: any) => {
+    host = options && options.host || "localhost";
+    port = options && options.port || "8765";
+    xhr = options && options.xhr;
+    app = consoleToTerminal(host, port, xhr);
 };
 
 export const injectConsoleHook: HtmlMutationHandler = (rawHtml: string): string => {
